@@ -161,80 +161,6 @@ void slavePinMode(I2CduinoSlaveMega &device, int pin, int mode) {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-/*
-void handleI2CData()
-{
-    // Check if data is available
-    if (Wire.available() >= 1) {
-        // Read the first byte as the flag
-        uint8_t flag = Wire.read();
-        Serial.println("Recieved I2C data");
-        // Check the flag and handle the data accordingly
-        switch (flag) 
-        {
-            case DIGITAL_PINS_SYNC:
-                // Read the next 8 bytes as the digitalPins variable
-                for (int i = 0; i < 8; i++) {
-                    globalSlave->digitalPins.bytes[i] = Wire.read();
-                }
-                for(int i=0; i<54; i++){
-                    if(!GET_BIT_SLVLIB(globalSlave->digitalPinsInputFlag.value, i)){
-                        // set the pin as output
-                        pinMode(i, OUTPUT);
-                        // set the pin to the value stored in digitalPins
-                        digitalWrite(i, GET_BIT_SLVLIB(globalSlave->digitalPins.value, i));
-                    }else{
-                        // set the pin as input
-                        pinMode(i, INPUT);
-                        // read the pin state
-                        int pinValue = digitalRead(i);
-                        // store the pin state in the digitalPins variable
-                        if(pinValue)
-                            SET_BIT_SLVLIB(globalSlave->digitalPins.value, i);
-                        else
-                            CLEAR_BIT_SLVLIB(globalSlave->digitalPins.value, i);
-                    }
-                }
-                break;            
-
-            case DIGITAL_PINS_INPUT_FLAG_SYNC:
-                // Read the next 8 bytes as the digitalPinsInputFlag variable
-                for (int i = 0; i < 8; i++) {
-                    globalSlave->digitalPinsInputFlag.bytes[i] = Wire.read();
-                }
-                for(int i=0; i<54; i++){
-                    if(GET_BIT_SLVLIB(globalSlave->digitalPinsInputFlag.value, i)){
-                        // set the pin as input
-                        pinMode(i, INPUT);
-                    }else{
-                        // set the pin as output
-                        pinMode(i, OUTPUT);
-                    }
-                }
-                break;
-
-                case DIGITAL_PINS_PULLUP_ENABLE_SYNC:
-                // Read the next 8 bytes as the digitalPinsPullupEnable variable
-                for (int i = 0; i < 8; i++) {
-                    globalSlave->digitalPinsPullupEnable.bytes[i] = Wire.read();
-                }
-                for(int i=0; i<54; i++){
-                    if(GET_BIT_SLVLIB(globalSlave->digitalPinsPullupEnable.value, i)){
-                        // set the pin pullup resistor
-                        digitalWrite(i,HIGH);
-                        pinMode(i, INPUT_PULLUP);
-                    }
-                }
-                break;
-
-            case REQUEST_FLAG_DIGITAL_PINS:
-                globalSlave->requestFlag = REQUEST_FLAG_DIGITAL_PINS;
-                break;
-        }
-    }
-}
-*/
-
 #define I2CDUINO_DEBUG
 
 
@@ -342,19 +268,6 @@ void handleI2CData(int howMany)
         }
     }
 }
-
-
-/*
-// function that executes whenever data is received from master
-void handleI2CData(int howMany) {
-    Serial.println("Data from Master");
-  while (Wire.available()) {
-    char c = Wire.read(); // receive byte as a character
-    Serial.print(c);      // print the character
-  }
-  Serial.println();
-}
-*/
 
 
 void I2CrequestedFromHost()
